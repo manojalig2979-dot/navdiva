@@ -523,7 +523,7 @@ footerTemplate.innerHTML = `
                             <h4 style="margin-bottom: 0.5rem; font-size: 0.9rem;">NDTechHub Connect:</h4>
                             <ul style="font-size: 0.85rem; color: var(--text-secondary);">
                                 <li>📧 support@navdiva.com</li>
-                                <li>📞 +91 93542 60169</li>
+                                <li>📞 +91 85870 01712</li>
                             </ul>
                         </div>
                     </div>
