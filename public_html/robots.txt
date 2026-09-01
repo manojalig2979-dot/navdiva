@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /assets/
+
+Sitemap: https://navdiva.com/sitemap.xml

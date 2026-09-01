@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" width="400" height="120">
+    <!-- Definitions for gradients -->
+    <defs>
+        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#4f46e5" />
+            <stop offset="50%" stop-color="#9333ea" />
+            <stop offset="100%" stop-color="#0891b2" />
+        </linearGradient>
+        <linearGradient id="darkGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#1e1b4b" />
+            <stop offset="100%" stop-color="#312e81" />
+        </linearGradient>
+    </defs>
+
+    <!-- Logo Icon (Geometric N) -->
+    <g transform="translate(20, 20)">
+        <path d="M10 80 V10 L50 65 V10" fill="none" stroke="url(#logoGradient)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" />
+        <circle cx="50" cy="10" r="8" fill="#0891b2" />
+        <circle cx="10" cy="80" r="8" fill="#4f46e5" />
+    </g>
+
+    <!-- Logo Text -->
+    <g transform="translate(110, 75)" font-family="'Outfit', sans-serif, 'Segoe UI', Arial" font-weight="800">
+        <text x="0" y="0" font-size="48" fill="url(#darkGradient)" letter-spacing="-1">NAVDIVA</text>
+        <text x="210" y="0" font-size="48" fill="url(#logoGradient)" letter-spacing="-1">GROUP</text>
+    </g>
+</svg>

@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" href="images/navdiva-logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel | Navdiva Group</title>
+  <meta name="description" content="Generate and print official corporate documents using Navdiva Group templates.">
+  <meta name="google-site-verification" content="Pf7AGEKuRGGrAlZ60lzUETPNMonoQ-75dR36QokwXbs" />
+  <link rel="stylesheet" href="css/style.css">
+  <!-- html2pdf.js for PDF Generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- Floating Bento Navbar -->
+  <header>
+    <nav class="bento-navbar">
+      <a href="./" class="nav-brand">
+        <span class="brand-text"><span style="color: var(--text-main);">NAV</span><span style="color: var(--cyan-electric);">DIVA</span></span><span class="dot"></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="./">Home</a></li>
+        <li><a href="./about">About Us</a></li>
+        <li class="dropdown">
+            <a href="./units">Portfolio</a>
+            <ul class="dropdown-menu">
+                <li><a href="https://ndtechhub.com" target="_blank" rel="noopener noreferrer">NDTechHub</a></li>
+                <li><a href="https://ndmart.store" target="_blank" rel="noopener noreferrer">NDMart</a></li>
+                <li><a href="https://rameshta.online" target="_blank" rel="noopener noreferrer">Rameshta</a></li>
+                <li><a href="https://ndinsights.navdiva.com/" target="_blank" rel="noopener noreferrer">NDInsights</a></li>
+                <li><a href="./contact?dept=Infrastructure">Project GHAR</a></li>
+            </ul>
+        </li>
+        <li><a href="https://ndinsights.navdiva.com/" target="_blank" rel="noopener noreferrer">Blog</a></li>
+        <li><a href="./contact">Contact</a></li>
+        <li><a href="./admin">Admin Panel</a></li>
+      </ul>
+      <div class="nav-actions">
+
+        <button class="mobile-toggle" aria-label="Toggle Mobile Menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Login Overlay -->
+  <div id="adminLoginOverlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: var(--bg-primary); z-index: 9999; display: flex; align-items: center; justify-content: center; flex-direction: column; transition: opacity 0.5s ease;">
+    <a href="./" style="position: absolute; top: 30px; left: 30px; display: flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-weight: 500; transition: color 0.3s;" onmouseover="this.style.color='var(--accent-primary)'" onmouseout="this.style.color='var(--text-secondary)'">
+      <i data-lucide="arrow-left" style="width: 20px; height: 20px;"></i> Back to Home
+    </a>
+    <div class="bento-card" style="padding: 40px; max-width: 400px; width: 90%; text-align: center;">
+      <h2 style="color: var(--accent-primary); margin-bottom: 20px;">Admin Login</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 30px; font-size: 14px;">Please enter your credentials to access the Document Command Center.</p>
+      
+      <form id="adminLoginForm">
+        <div class="form-group" style="text-align: left;">
+          <label>Email Address</label>
+          <input type="email" id="adminEmail" required placeholder="admin@navdiva.com" style="width: 100%;">
+        </div>
+        <div class="form-group" style="text-align: left; margin-bottom: 30px;">
+          <label>Password</label>
+          <input type="password" id="adminPassword" required placeholder="••••••••" style="width: 100%;">
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">Access Panel <i data-lucide="lock"></i></button>
+      </form>
+      <p id="loginError" style="color: #ef4444; margin-top: 15px; font-size: 13px; display: none; font-weight: 600;">Invalid credentials. Please try again.</p>
+    </div>
+  </div>
+
+  <!-- Page Content Container -->
+  <main class="container">
+    
+    <!-- Navigation Tabs -->
+    <div class="admin-tab-bar">
+      <button class="admin-tab-btn active" id="tabDocGen" onclick="switchAdminTab('docGen')">
+        <i data-lucide="file-text"></i> Document Command Center
+      </button>
+      <button class="admin-tab-btn" id="tabEmpDir" onclick="switchAdminTab('empDir')">
+        <i data-lucide="users"></i> Employee Directory & Records
+      </button>
+    </div>
+
+    <!-- VIEW 1: Document Command Center -->
+    <div id="documentGeneratorView" class="admin-view-section">
+      <!-- Hero / Header Section -->
+      <div class="section-header">
+        <h1 class="section-title">Document Command Center</h1>
+        <p class="section-subtitle">Generate official correspondence for all units. Select a template, prefill the details, and print a formatted A4 page.</p>
+      </div>
+
+      <!-- Admin Workspace Grid -->
+      <div class="admin-workspace">
+
+        <!-- Left Sidebar: Configuration Panel -->
+        <aside class="admin-sidebar">
+          <h2 style="font-size: 18px; margin-bottom: 20px; font-weight: 700; color: var(--accent-primary);">Generator Controls</h2>
+          
+          <!-- Document selector -->
+          <div class="form-group">
+            <label for="docTypeSelect">Document Template</label>
+            <select id="docTypeSelect">
+              <option value="Salary Slip">Salary Slip</option>
+              <option value="Offer Letter">Offer Letter</option>
+              <option value="Appointment Letter">Appointment Letter</option>
+              <option value="Joining Letter">Joining Letter</option>
+              <option value="Internship Certificate">Internship Certificate</option>
+              <option value="Relieving Letter">Relieving Letter</option>
+              <option value="General Notice">General Notice</option>
+              <option value="Employee ID Card">Employee ID Card</option>
+            </select>
+          </div>
+
+          <hr style="border: 0; border-top: 1px solid var(--glass-border); margin: 20px 0;">
+
+          <!-- Dynamic inputs container -->
+          <div id="dynamicFormFields">
+            <!-- Fields populated via JS depending on selector -->
+          </div>
+
+          <div style="display: flex; gap: 10px; margin-top: 30px; flex-direction: column;">
+            <button id="autofillBtn" class="btn btn-secondary" style="justify-content: center;">
+              <i data-lucide="sparkles"></i> Autofill Demo Data
+            </button>
+            <button id="printBtn" class="btn btn-primary" style="justify-content: center; margin-bottom: 10px;">
+              <i data-lucide="printer"></i> Print Document (A4)
+            </button>
+            <button id="generatePdfBtn" class="btn" style="justify-content: center; background: rgba(0, 184, 255, 0.1); border: 1px solid var(--cyan-electric); color: var(--cyan-electric);">
+              <i data-lucide="download"></i> Download PDF
+            </button>
+          </div>
+        </aside>
+
+        <!-- Right Main Workspace: Live Document Preview -->
+        <section class="admin-preview-container">
+          
+          <!-- Live Preview Header Details -->
+          <div class="preview-header-bar">
+            <span style="font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+              <span style="width: 8px; height: 8px; border-radius: 50%; background: #22c55e; display: inline-block;"></span> 
+              Live Preview (Standard A4 Letterhead)
+            </span>
+            <span id="docRefId" style="font-family: monospace; font-size: 12px; color: var(--text-secondary);">NDG-REF: --</span>
+          </div>
+
+          <!-- Simulated A4 Print Pane -->
+          <div class="admin-preview-pane" id="printPane">
+            <!-- Watermark Logo -->
+            <img src="images/navdiva-logo.png" alt="Watermark" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 70%; opacity: 0.05; pointer-events: none; z-index: 0; user-select: none;">
+            
+            <!-- Letterhead -->
+            <div class="doc-letterhead">
+              <div class="doc-logo">NAVDIVA<span>GROUP</span></div>
+              <div class="doc-org-info">
+                <strong>Navdiva Group Pvt Ltd</strong><br>
+                Corporate Office: 105-B, Gali No. 5, Mahalaxmi Vihar, Phase 7, Block A, Shiv Vihar, Karawal Nagar, Delhi, 110094<br>
+                Email: corporate@navdiva.com | Web: navdiva.com
+              </div>
+            </div>
+
+            <!-- Metadata -->
+            <div class="doc-metadata">
+              <div>
+                <strong>Ref:</strong> <span id="previewRef">NDG/2026/OFF-109</span>
+              </div>
+              <div>
+                <strong>Date:</strong> <span id="previewDate">June 21, 2026</span>
+              </div>
+            </div>
+
+            <!-- Document Title -->
+            <h2 class="doc-title" id="previewTitle">LETTER OF OFFER</h2>
+
+            <!-- Document Body content -->
+            <div class="doc-body" id="previewBody">
+              <!-- Populated dynamically -->
+            </div>
+
+            <!-- Signatures -->
+            <div class="doc-signatures">
+              <div class="doc-sig-block" id="candidateSigBlock">
+                <div class="doc-sig-line"></div>
+                <span>Candidate Signature</span>
+                <strong id="previewCandidateName">Aarav Sharma</strong>
+              </div>
+              
+              <div class="doc-sig-block" style="position: relative; float: right; text-align: center; margin-left: auto;">
+                <!-- Official Stamp Overlay -->
+                <div class="stamp-overlay" style="position: absolute; right: 40px; bottom: -10px; width: 110px; height: 110px; border: 3px double #0A1F44; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-align: center; color: #0A1F44; font-family: 'Times New Roman', serif; font-weight: bold; transform: rotate(-15deg); opacity: 0.6; z-index: 1;">
+                    <div style="border: 1px solid #0A1F44; border-radius: 50%; width: 94px; height: 94px; display: flex; flex-direction: column; justify-content: center;">
+                        <span style="font-size: 9px; letter-spacing: 1px;">AUTHORIZED</span>
+                        <span style="font-size: 13px; margin: 4px 0; word-break: break-word; padding: 0 4px;">ND GROUP</span>
+                        <span style="font-size: 8px; border-top: 1px dashed #0A1F44; padding-top: 4px; margin: 0 10px;">SIGNATORY</span>
+                    </div>
+                </div>
+                
+                <div style="position: relative; z-index: 2; padding: 10px; display: inline-block;">
+                    <p style="margin: 0; color: #0A1F44; font-weight: bold; font-family: 'Times New Roman', serif; font-size: 1.5rem; text-align: center;">RKushwaha</p>
+                    <p style="margin: 5px 0 0 0; color: #333; font-size: 14px;"><strong>Rakhi Kushwaha</strong><br>MD, Navdiva Group</p>
+                </div>
+              </div>
+              <div style="clear: both;"></div>
+            </div>
+            
+            <p style="text-align: center; font-size: 0.85rem; color: #555; margin-top: 40px; position: relative; z-index: 1;"><i>This is a computer-generated document and does not require a physical signature.</i></p>
+            
+            <div style="margin-top: 15px; border-top: 1px solid #0A1F44; padding-top: 10px; text-align: center; font-size: 0.8rem; color: #333; position: relative; z-index: 1;">
+                <strong>Reg:</strong> UDYAM-DL-05-0079535 &nbsp;|&nbsp; <strong>Address:</strong> 105-B, Gali No. 5, Mahalaxmi Vihar, Phase 7, Block A, Shiv Vihar, Karawal Nagar, Delhi, 110094
+            </div>
+          </div>
+
+        </section>
+
+      </div>
+    </div>
+
+    <!-- VIEW 2: Employee Directory & Records -->
+    <div id="employeeDirectoryView" class="admin-view-section hidden">
+      <!-- Hero / Header Section -->
+      <div class="section-header">
+        <h1 class="section-title">Employee Directory & Management</h1>
+        <p class="section-subtitle">Manage group personnel records, operating unit assignments, compensation details, and quick document actions.</p>
+      </div>
+
+      <!-- KPI Summary Cards -->
+      <div class="emp-stats-bar">
+        <div class="emp-stat-card">
+          <div class="emp-stat-icon" style="background: rgba(99, 102, 241, 0.15); color: var(--accent-primary);">
+            <i data-lucide="users"></i>
+          </div>
+          <div class="emp-stat-info">
+            <span class="emp-stat-num" id="statTotalEmp">0</span>
+            <span class="emp-stat-label">Total Employees</span>
+          </div>
+        </div>
+        
+        <div class="emp-stat-card">
+          <div class="emp-stat-icon" style="background: rgba(34, 197, 94, 0.15); color: #22c55e;">
+            <i data-lucide="user-check"></i>
+          </div>
+          <div class="emp-stat-info">
+            <span class="emp-stat-num" id="statActiveEmp">0</span>
+            <span class="emp-stat-label">Active Staff</span>
+          </div>
+        </div>
+
+        <div class="emp-stat-card">
+          <div class="emp-stat-icon" style="background: rgba(0, 184, 255, 0.15); color: var(--cyan-electric);">
+            <i data-lucide="building-2"></i>
+          </div>
+          <div class="emp-stat-info">
+            <span class="emp-stat-num" id="statUnitsCount">4</span>
+            <span class="emp-stat-label">Operating Units</span>
+          </div>
+        </div>
+
+        <div class="emp-stat-card">
+          <div class="emp-stat-icon" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b;">
+            <i data-lucide="wallet"></i>
+          </div>
+          <div class="emp-stat-info">
+            <span class="emp-stat-num" id="statTotalPayroll">₹0</span>
+            <span class="emp-stat-label">Est. Monthly Payroll</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search, Filters & Actions Bar -->
+      <div class="emp-controls-bar">
+        <div class="emp-search-box">
+          <i data-lucide="search"></i>
+          <input type="text" id="empSearchInput" placeholder="Search by name, ID, designation, email...">
+        </div>
+
+        <div class="emp-filter-group">
+          <select id="empUnitFilter" class="emp-filter-select">
+            <option value="ALL">All Operating Units</option>
+            <option value="Navdiva Group HQ">Navdiva Group HQ</option>
+            <option value="NDTechHub">NDTechHub</option>
+            <option value="NDMART">NDMART</option>
+            <option value="Rameshta">Rameshta</option>
+          </select>
+
+          <select id="empStatusFilter" class="emp-filter-select">
+            <option value="ALL">All Statuses</option>
+            <option value="Active">Active</option>
+            <option value="On Leave">On Leave</option>
+            <option value="Former">Former / Relieved</option>
+          </select>
+
+          <button class="btn btn-primary" onclick="openAddEmployeeModal()">
+            <i data-lucide="user-plus"></i> Add Employee
+          </button>
+        </div>
+      </div>
+
+      <!-- Employee Cards Bento Grid -->
+      <div id="employeeGrid" class="emp-grid">
+        <!-- Rendered dynamically by admin.js -->
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Add / Edit Employee Modal -->
+  <div id="employeeModal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="modalTitle">Add New Employee</h3>
+        <button class="modal-close-btn" onclick="closeEmployeeModal()">
+          <i data-lucide="x" style="width: 20px; height: 20px;"></i>
+        </button>
+      </div>
+      <form id="employeeForm">
+        <input type="hidden" id="modalEmpIndex" value="">
+        <div class="modal-form-grid">
+          <div class="form-group">
+            <label for="modalEmpId">Employee ID *</label>
+            <input type="text" id="modalEmpId" required placeholder="e.g. NDG-1050">
+          </div>
+          <div class="form-group">
+            <label for="modalEmpName">Full Name *</label>
+            <input type="text" id="modalEmpName" required placeholder="e.g. Aarav Sharma">
+          </div>
+          <div class="form-group">
+            <label for="modalEmpRole">Designation / Role *</label>
+            <input type="text" id="modalEmpRole" required placeholder="e.g. Senior Software Engineer">
+          </div>
+          <div class="form-group">
+            <label for="modalEmpUnit">Operating Unit *</label>
+            <select id="modalEmpUnit" required>
+              <option value="Navdiva Group HQ">Navdiva Group HQ</option>
+              <option value="NDTechHub">NDTechHub</option>
+              <option value="NDMART">NDMART</option>
+              <option value="Rameshta">Rameshta</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="modalEmpEmail">Work Email *</label>
+            <input type="email" id="modalEmpEmail" required placeholder="aarav.s@navdiva.com">
+          </div>
+          <div class="form-group">
+            <label for="modalEmpPhone">Contact Number</label>
+            <input type="tel" id="modalEmpPhone" placeholder="+91 98765 43210">
+          </div>
+          <div class="form-group">
+            <label for="modalEmpJoinDate">Joining Date *</label>
+            <input type="date" id="modalEmpJoinDate" required>
+          </div>
+          <div class="form-group">
+            <label for="modalEmpSalary">Monthly Salary (₹)</label>
+            <input type="number" id="modalEmpSalary" placeholder="e.g. 60000">
+          </div>
+          <div class="form-group">
+            <label for="modalEmpStatus">Status *</label>
+            <select id="modalEmpStatus" required>
+              <option value="Active">Active</option>
+              <option value="On Leave">On Leave</option>
+              <option value="Former">Former / Relieved</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="modalEmpBlood">Blood Group</label>
+            <select id="modalEmpBlood">
+              <option value="O+">O+</option>
+              <option value="A+">A+</option>
+              <option value="B+">B+</option>
+              <option value="AB+">AB+</option>
+              <option value="O-">O-</option>
+              <option value="A-">A-</option>
+              <option value="B-">B-</option>
+              <option value="AB-">AB-</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeEmployeeModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary"><i data-lucide="check"></i> Save Record</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- Footer -->
+  <navdiva-footer></navdiva-footer>
+
+  <script src="js/navdiva-footer.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/admin.js"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
+

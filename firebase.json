@@ -1,0 +1,44 @@
+{
+  "hosting": {
+    "public": "public_html",
+    "cleanUrls": true,
+    "trailingSlash": false,
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "headers": [
+      {
+        "source": "/js/navdiva-footer.js",
+        "headers": [
+          {
+            "key": "Access-Control-Allow-Origin",
+            "value": "*"
+          },
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=3600"
+          }
+        ]
+      }
+    ],
+    "redirects": [
+      {
+        "source": "/index.html",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "source": "/index",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "source": "/:page*.html",
+        "destination": "/:page*",
+        "type": 301
+      }
+    ]
+  }
+}

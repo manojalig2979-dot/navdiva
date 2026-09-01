@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Environment and IDE
+.env
+.env.local
+.vscode/
+.idea/
+.agents/
+
+# Firebase & build caches
+.firebase/
+.firebaserc
+*.log
+.DS_Store
+Thumbs.db

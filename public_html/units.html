@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" href="images/navdiva-logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Ecosystem | Navdiva Group</title>
+  <meta name="description" content="Explore Navdiva Group's active business units: NDTechHub, NDMart, Rameshta, NDInsights, and Project GHAR.">
+  <link rel="canonical" href="https://navdiva.com/units">
+  <meta property="og:title" content="Portfolio Ecosystem | Navdiva Group">
+  <meta property="og:description" content="Explore Navdiva Group's active business units: NDTechHub, NDMart, Rameshta, NDInsights, and Project GHAR.">
+  <meta property="og:image" content="https://navdiva.com/images/navdiva-logo.png">
+  <meta property="og:url" content="https://navdiva.com/units">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="google-site-verification" content="Pf7AGEKuRGGrAlZ60lzUETPNMonoQ-75dR36QokwXbs" />
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- Floating Bento Navbar -->
+  <header>
+    <nav class="bento-navbar">
+      <a href="./" class="nav-brand">
+        <span class="brand-text"><span style="color: var(--text-main);">NAV</span><span style="color: var(--cyan-electric);">DIVA</span></span><span class="dot"></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="./">Home</a></li>
+        <li><a href="./about">About Us</a></li>
+        <li class="dropdown active">
+            <a href="./units">Portfolio</a>
+            <ul class="dropdown-menu">
+                <li><a href="https://ndtechhub.com" target="_blank" rel="noopener noreferrer">NDTechHub</a></li>
+                <li><a href="https://ndmart.store" target="_blank" rel="noopener noreferrer">NDMart</a></li>
+                <li><a href="https://rameshta.online" target="_blank" rel="noopener noreferrer">Rameshta</a></li>
+                <li><a href="https://ndinsights.navdiva.com/" target="_blank" rel="noopener noreferrer">NDInsights</a></li>
+                <li><a href="./contact?dept=Infrastructure">Project GHAR</a></li>
+            </ul>
+        </li>
+        <li><a href="https://ndinsights.navdiva.com/" target="_blank" rel="noopener noreferrer">Blog</a></li>
+        <li><a href="./contact">Contact</a></li>
+        <li><a href="./admin">Admin Panel</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="cmd-trigger-btn" aria-label="Open Command Search (Ctrl+K)">
+          <i data-lucide="search" style="width: 14px; height: 14px;"></i>
+          <span class="cmd-trigger-kbd"><kbd>⌘</kbd><kbd>K</kbd></span>
+        </button>
+
+        <button class="mobile-toggle" aria-label="Toggle Mobile Menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+    
+    <!-- Hero / Header Section -->
+    <div class="section-header" style="margin-bottom: 48px;">
+      <h1 class="section-title" style="font-size: clamp(2.2rem, 5vw, 3.6rem); margin-bottom: 12px; text-align: center;">
+        Our Business <span style="color: var(--cyan-electric);">Portfolio</span>
+      </h1>
+      <p class="section-subtitle" style="text-align: center; max-width: 680px; margin: 0 auto; color: var(--text-secondary); font-size: 1.05rem;">
+        A snowflake multisite architecture powering specialized, high-performance operating units under Navdiva Group.
+      </p>
+    </div>
+
+    <!-- Bento Grid Styling Overrides for Portfolio Layout -->
+    <style>
+      .portfolio-bento-grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 24px;
+        margin-bottom: 60px;
+      }
+      .bento-unit-card {
+        padding: 28px !important;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 20px;
+        transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.35s ease, box-shadow 0.35s ease;
+      }
+      .bento-unit-card:hover {
+        transform: translateY(-5px);
+      }
+      .bento-unit-card .unit-badge {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        display: inline-block;
+        margin-bottom: 6px;
+      }
+      .bento-unit-card h2 {
+        font-size: 1.6rem !important;
+        color: #ffffff;
+        margin-bottom: 8px;
+        line-height: 1.25;
+      }
+      .bento-unit-card p {
+        font-size: 0.92rem !important;
+        line-height: 1.55;
+        color: var(--text-secondary);
+        margin-bottom: 16px;
+      }
+      .bento-unit-card img {
+        width: 100%;
+        height: 160px;
+        object-fit: cover;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .bento-unit-card-wide {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        align-items: center;
+      }
+      .bento-unit-card-wide img {
+        height: 180px;
+      }
+      @media (max-width: 992px) {
+        .bento-span-8, .bento-span-4, .bento-span-6, .bento-span-12 {
+          grid-column: span 12 !important;
+        }
+        .bento-unit-card-wide {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+
+    <!-- Bento Box Grid (5 Business Units) -->
+    <div class="portfolio-bento-grid">
+
+      <!-- Row 1: NDTechHub (Span 8 - Wide Feature) -->
+      <div class="card bento-card bento-span-8 bento-unit-card">
+        <div class="bento-unit-card-wide">
+          <div>
+            <span class="unit-badge" style="color: var(--cyan-electric);">Technology & AI</span>
+            <h2>NDTechHub</h2>
+            <p>
+              Primary engineering division offering bespoke software engineering, AI/ML agentic solutions, analytics, mobile app development, and HTML-first web platforms built for zero-bloat speed.
+            </p>
+            <a href="https://ndtechhub.com" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="width: fit-content; display: inline-flex; align-items: center; gap: 6px;">
+              Visit ndtechhub.com ↗
+            </a>
+          </div>
+          <div>
+            <img src="assets/ndtechhub_hero.jpg" alt="NDTechHub Tech & AI Lab">
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 1: NDMart (Span 4 - Compact Vertical) -->
+      <div class="card bento-card bento-span-4 bento-unit-card">
+        <div>
+          <span class="unit-badge" style="color: #FF3366;">Commerce & Retail</span>
+          <h2>NDMart</h2>
+          <p>
+            Borderless retail system connecting consumers with direct-to-consumer e-commerce pipelines, e-retail infrastructure, and automated affiliate networks.
+          </p>
+          <img src="assets/ndmart_hero.jpg" alt="NDMart E-Commerce">
+        </div>
+        <div>
+          <a href="https://ndmart.store" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="background: linear-gradient(135deg, #FF3366, #a855f7); width: fit-content; display: inline-flex; align-items: center; gap: 6px;">
+            Visit ndmart.store ↗
+          </a>
+        </div>
+      </div>
+
+      <!-- Row 2: Rameshta (Span 4 - Compact Vertical) -->
+      <div class="card bento-card bento-span-4 bento-unit-card">
+        <div>
+          <span class="unit-badge" style="color: #FF9900;">Spiritual & Devotional</span>
+          <h2>Rameshta</h2>
+          <p>
+            Devotional hub dedicated to Lord Ram, Hanuman, and Shiv featuring interactive virtual "Live Aarti", daily HD darshan, prayer books, and audio chants.
+          </p>
+          <img src="assets/rameshta_devotional.jpg" alt="Rameshta Spiritual Platform">
+        </div>
+        <div>
+          <a href="https://rameshta.online" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="background: linear-gradient(135deg, #FF9900, #f59e0b); width: fit-content; display: inline-flex; align-items: center; gap: 6px;">
+            Visit rameshta.online ↗
+          </a>
+        </div>
+      </div>
+
+      <!-- Row 2: NDInsights (Span 8 - Wide Feature) -->
+      <div class="card bento-card bento-span-8 bento-unit-card">
+        <div class="bento-unit-card-wide">
+          <div>
+            <span class="unit-badge" style="color: #A855F7;">Research & AI Intelligence</span>
+            <h2>NDInsights</h2>
+            <p>
+              Digital intelligence and media arm providing high-impact tech analysis, deep AI research breakdowns, market trend reports, and thought leadership blogs.
+            </p>
+            <a href="https://ndinsights.navdiva.com/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="background: linear-gradient(135deg, #a855f7, #6366f1); width: fit-content; display: inline-flex; align-items: center; gap: 6px;">
+              Explore NDInsights ↗
+            </a>
+          </div>
+          <div>
+            <img src="assets/ndinsights_hero.jpg" alt="NDInsights AI Research & Media Hub">
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 3: Project GHAR (Span 12 - Full Width Banner) -->
+      <div class="card bento-card bento-span-12 bento-unit-card">
+        <div class="bento-unit-card-wide" style="grid-template-columns: 1.2fr 0.8fr;">
+          <div>
+            <span class="unit-badge" style="color: #00E676;">Civil & Infrastructure</span>
+            <h2>Project GHAR</h2>
+            <p>
+              Infrastructure development unit crafting photorealistic 3D villa blueprints, structural engineering audits, architectural visualizations, and real estate transformations.
+            </p>
+            <a href="./contact?dept=Infrastructure" class="btn btn-primary" style="background: linear-gradient(135deg, #00E676, #00B8FF); width: fit-content; display: inline-flex; align-items: center; gap: 6px;">
+              Inquire Infrastructure ↗
+            </a>
+          </div>
+          <div>
+            <img src="assets/ghar_realestate.jpg" alt="Project GHAR Infrastructure" style="height: 170px;">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <navdiva-footer></navdiva-footer>
+
+  <script src="js/navdiva-footer.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    if (window.lucide) {
+      lucide.createIcons();
+    }
+  </script>
+</body>
+</html>
+
