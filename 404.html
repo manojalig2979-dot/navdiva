@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" href="images/navdiva-logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - Page Not Found | Navdiva Group</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .not-found-wrapper {
+      min-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+    }
+    .not-found-code {
+      font-size: 6rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #00f0ff, #7000ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+      line-height: 1;
+    }
+    .not-found-title {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+    .not-found-desc {
+      color: #a0aec0;
+      max-width: 450px;
+      margin-bottom: 2rem;
+    }
+    .btn-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.6rem;
+      background: linear-gradient(135deg, #00f0ff, #0072ff);
+      color: #000;
+      font-weight: 600;
+      border-radius: 9999px;
+      text-decoration: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn-home:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 240, 255, 0.3);
+    }
+  </style>
+</head>
+<body>
+  <!-- Floating Bento Navbar -->
+  <header>
+    <nav class="bento-navbar">
+      <a href="./" class="nav-brand">
+        <span class="brand-text"><span style="color: var(--text-main);">NAV</span><span style="color: var(--cyan-electric);">DIVA</span></span><span class="dot"></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="./">Home</a></li>
+        <li><a href="./about.html">About Us</a></li>
+        <li><a href="./units.html">Portfolio</a></li>
+        <li><a href="./contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="not-found-wrapper">
+      <div class="not-found-code">404</div>
+      <h1 class="not-found-title">Page Not Found</h1>
+      <p class="not-found-desc">The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
+      <a href="./index.html" class="btn-home">
+        <i data-lucide="arrow-left" style="width: 18px; height: 18px;"></i>
+        <span>Return to Home</span>
+      </a>
+    </div>
+  </main>
+
+  <script src="js/main.js"></script>
+  <script>
+    if (window.lucide) {
+      lucide.createIcons();
+    }
+  </script>
+</body>
+</html>
