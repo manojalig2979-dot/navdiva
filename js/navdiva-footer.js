@@ -3,13 +3,14 @@ footerTemplate.innerHTML = `
             <style>
                 :host {
                     /* Self-contained CSS Variables to ensure it looks the same everywhere */
-                    --bg-deep: #0d1b2a;
+                    --bg-deep: #080f1a;
                     --navy-brand: #1b263b;
+                    --navy-surface: #0d1b2a;
                     --cyan-electric: #00B8FF;
                     --text-main: #f8fafc;
-                    --border: rgba(255, 255, 255, 0.1);
-                    --text-secondary: rgba(248, 250, 252, 0.7);
-                    --nav-glow: rgba(0, 184, 255, 0.05);
+                    --border: rgba(255, 255, 255, 0.12);
+                    --text-secondary: rgba(248, 250, 252, 0.78);
+                    --nav-glow: rgba(0, 184, 255, 0.08);
                     
                     display: block;
                     font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -22,39 +23,42 @@ footerTemplate.innerHTML = `
                 
                 .site-footer {
                     width: 100%;
-                    background: rgba(0, 184, 255, 0.05);
-                    backdrop-filter: blur(20px);
-                    -webkit-backdrop-filter: blur(20px);
+                    background: linear-gradient(180deg, #0d1b2a 0%, #080f1a 100%);
                     border-top: 1px solid var(--cyan-electric);
                     color: var(--text-main);
                     max-width: 100%;
                     overflow-x: hidden;
+                    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.6);
                 }
                 .back-to-top {
                     display: block;
                     width: 100%;
-                    background-color: var(--navy-brand);
+                    background: linear-gradient(180deg, #1b263b 0%, #151e30 100%);
                     color: var(--text-main);
                     text-align: center;
                     padding: 15px 0;
                     font-size: 13px;
                     text-decoration: none;
-                    font-weight: bold;
+                    font-weight: 700;
                     text-transform: uppercase;
-                    letter-spacing: 0.5px;
+                    letter-spacing: 0.8px;
                     border: none;
-                    border-bottom: 1px solid rgba(0, 184, 255, 0.2);
+                    border-bottom: 1px solid rgba(0, 184, 255, 0.25);
                     cursor: pointer;
-                    transition: background-color 0.3s ease;
+                    transition: all 0.3s ease;
                 }
                 .back-to-top:hover {
-                    background-color: #273956;
+                    background: #273956;
+                    color: var(--cyan-electric);
                 }
                 .main-footer-links {
-                    padding: 40px 20px;
+                    padding: 48px 20px;
                     display: flex;
                     justify-content: center;
                     width: 100%;
+                    background: #0d1b2a;
+                    border-top: 1px solid rgba(0, 184, 255, 0.15);
+                    border-bottom: 1px solid rgba(0, 184, 255, 0.15);
                 }
                 .footer-grid {
                     max-width: 1200px;
@@ -68,43 +72,55 @@ footerTemplate.innerHTML = `
                     color: var(--cyan-electric);
                     margin-bottom: 15px;
                     margin-top: 0;
-                    font-size: 1.1rem;
+                    font-size: 1.05rem;
+                    font-weight: 700;
+                    letter-spacing: 0.5px;
+                    text-transform: uppercase;
                 }
-                .footer-col p { margin-top: 0; line-height: 1.6; font-size: 0.9rem; }
+                .footer-col p {
+                    margin-top: 0;
+                    line-height: 1.65;
+                    font-size: 0.9rem;
+                    color: var(--text-secondary);
+                }
                 .footer-col ul { list-style: none; padding: 0; margin: 0; }
                 .footer-col ul li { margin-bottom: 10px; font-size: 0.95rem; }
                 .footer-col a {
-                    color: var(--text-main);
+                    color: var(--text-secondary);
                     text-decoration: none;
-                    transition: opacity 0.3s ease, color 0.3s ease;
+                    transition: all 0.25s ease;
                 }
-                .footer-col a:hover { color: var(--cyan-electric); }
+                .footer-col a:hover {
+                    color: var(--cyan-electric);
+                    padding-left: 4px;
+                }
                 
                 .btn-primary {
-                    background: rgba(255, 255, 255, 0.03);
-                    border: 1px solid var(--border);
+                    background: rgba(0, 184, 255, 0.1);
+                    border: 1px solid var(--cyan-electric);
                     border-radius: 8px;
                     color: var(--cyan-electric);
                     text-decoration: none;
                     display: inline-block;
                     padding: 0.5rem 1rem;
                     font-size: 0.9rem;
+                    font-weight: 600;
                     transition: all 0.3s ease;
                 }
                 .btn-primary:hover {
-                    background: rgba(0, 184, 255, 0.1);
-                    border-color: var(--cyan-electric);
-                    color: #fff;
+                    background: var(--cyan-electric);
+                    color: #000;
+                    box-shadow: 0 0 15px rgba(0, 184, 255, 0.5);
                 }
                 /* Social Banner Section - Directly Below Back To Top */
                 .social-banner {
                     width: 100%;
-                    background: linear-gradient(180deg, rgba(27, 38, 59, 0.8) 0%, rgba(13, 27, 42, 0.92) 100%);
+                    background: linear-gradient(180deg, rgba(27, 38, 59, 0.95) 0%, rgba(13, 27, 42, 0.98) 100%);
                     backdrop-filter: blur(20px) saturate(180%);
                     -webkit-backdrop-filter: blur(20px) saturate(180%);
                     border-bottom: 1px solid rgba(0, 184, 255, 0.2);
                     border-top: 1px solid rgba(255, 255, 255, 0.1);
-                    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 8px 32px rgba(0, 0, 0, 0.25);
+                    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 8px 32px rgba(0, 0, 0, 0.4);
                     padding: 22px 30px;
                     display: flex;
                     justify-content: center;
@@ -350,6 +366,7 @@ footerTemplate.innerHTML = `
                 .bottom-links a {
                     color: inherit;
                     text-decoration: none;
+                    transition: color 0.25s ease;
                 }
                 .bottom-links a:hover {
                     color: var(--cyan-electric);
@@ -450,10 +467,10 @@ footerTemplate.innerHTML = `
                         justify-content: center;
                     }
                     .main-footer-links {
-                        padding: 30px 15px;
+                        padding: 35px 15px;
                     }
                     .bottom-footer {
-                        padding: 20px 15px;
+                        padding: 24px 15px;
                         word-break: break-word;
                     }
                 }
@@ -488,16 +505,16 @@ footerTemplate.innerHTML = `
                         <h4>NAVDIVA GROUP</h4>
                         <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 15px;">
                             Bridging innovation with tradition across multiple sectors globally.<br>
-                            <span style="font-size: 0.8rem; opacity: 0.8;">Reg: UDYAM-DL-05-0079535</span><br><br>
-                            <strong>📍 Headquarters:</strong><br>
+                            <span style="font-size: 0.8rem; opacity: 0.85; color: var(--cyan-electric);">Reg: UDYAM-DL-05-0079535</span><br><br>
+                            <strong style="color: #fff;">📍 Headquarters:</strong><br>
                             105-B, Gali No. 5, Mahalaxmi Vihar,<br>
                             Phase 7, Block A, Shiv Vihar,<br>
                             Karawal Nagar, Delhi, 110094<br><br>
-                            <strong>📍 Aligarh Branch:</strong><br>
+                            <strong style="color: #fff;">📍 Aligarh Branch:</strong><br>
                             NAVDIVA Aligarh,<br>
                             5/27 M-15 Mangal Vihar,<br>
                             Banna Devi Thana, Aligarh 202002<br><br>
-                            <iframe src="https://maps.google.com/maps?q=28.7219,77.2791&hl=en&z=14&output=embed" style="height: 180px; width: 100%; border-radius: 12px; margin-bottom: 15px; border: 1px solid var(--border); overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.2); filter: invert(90%) hue-rotate(180deg) brightness(85%) contrast(85%);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            <iframe src="https://maps.google.com/maps?q=28.7219,77.2791&hl=en&z=14&output=embed" style="height: 180px; width: 100%; border-radius: 12px; margin-bottom: 15px; border: 1px solid var(--border); overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.4); filter: invert(90%) hue-rotate(180deg) brightness(85%) contrast(85%);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                             <span style="display: inline-flex; align-items: center; gap: 5px;">
                                 <em>Developed by</em> 
                                 <a href="https://ndtechhub.com" style="font-weight: 600;"><span style="color: var(--text-main);">ND</span><span style="color: var(--cyan-electric);">TechHub</span></a>
@@ -508,16 +525,19 @@ footerTemplate.innerHTML = `
                         </div>
                     </div>
                     <div class="footer-col">
-                        <h4>Looking for Spiritual Guidance?</h4>
+                        <h4>Spiritual Guidance</h4>
                         <ul>
-                            <li><a href="https://rameshta.online">Visit Rameshta</a></li>
+                            <li><a href="https://rameshta.online" target="_blank" rel="noopener">Visit Rameshta</a></li>
+                            <li><a href="https://rameshta.online" target="_blank" rel="noopener">Daily HD Darshan</a></li>
+                            <li><a href="https://rameshta.online" target="_blank" rel="noopener">Sacred Prayers & Audio</a></li>
                         </ul>
                     </div>
                     <div class="footer-col">
-                        <h4>Need Tech Solutions?</h4>
+                        <h4>Tech Solutions</h4>
                         <ul>
-                            <li><a href="https://ndtechhub.com">Visit NDTechHub</a></li>
-                            <li><a href="./contact">Hire Our Developers</a></li>
+                            <li><a href="https://ndtechhub.com" target="_blank" rel="noopener">Visit NDTechHub</a></li>
+                            <li><a href="contact.html">Hire Our Developers</a></li>
+                            <li><a href="units.html">Enterprise AI & Cloud</a></li>
                         </ul>
                         <div style="margin-top: 1.5rem;">
                             <h4 style="margin-bottom: 0.5rem; font-size: 0.9rem;">NDTechHub Connect:</h4>
@@ -530,11 +550,14 @@ footerTemplate.innerHTML = `
                     <div class="footer-col">
                         <h4>Quick Links</h4>
                         <ul>
-                            <li><a href="./careers">Careers</a></li>
-                            <li><a href="./press">Press Room</a></li>
-                            <li><a href="./ceo">Founder's Story</a></li>
-                            <li><a href="./contact">Global Contact</a></li>
-                            <li><a href="./privacy">Privacy Policy</a></li>
+                            <li><a href="units.html">Portfolio</a></li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="careers.html">Careers</a></li>
+                            <li><a href="press.html">Press Room</a></li>
+                            <li><a href="ceo.html">Founder's Story</a></li>
+                            <li><a href="contact.html">Global Contact</a></li>
+                            <li><a href="privacy.html">Privacy Policy</a></li>
+                            <li><a href="admin.html">Admin Portal</a></li>
                         </ul>
                     </div>
                   </div>
@@ -546,20 +569,22 @@ footerTemplate.innerHTML = `
                         <span style="color: var(--text-main);">NAV</span><span style="color: var(--cyan-electric);">DIVA</span>
                     </div>
                     <div class="bottom-links">
-                        <a href="./privacy">Privacy Policy</a>
-                        <a href="./contact">Global Contact</a>
-                        <a href="./press">Press Room</a>
+                        <a href="privacy.html">Privacy Policy</a>
+                        <a href="contact.html">Global Contact</a>
+                        <a href="press.html">Press Room</a>
+                        <a href="careers.html">Careers</a>
+                        <a href="admin.html">Admin Portal</a>
                     </div>
-                    <div style="margin-bottom: 10px;">© 2012-<span id="current-year"></span>, Navdiva Group. All rights reserved.</div>
+                    <div style="margin-bottom: 10px; color: var(--text-main); font-weight: 500;">© 2012-<span id="current-year"></span>, Navdiva Group. All rights reserved.</div>
                     <div style="color: var(--text-secondary); margin-bottom: 5px; line-height: 1.5;">Reg: UDYAM-DL-05-0079535</div>
                     <div style="color: var(--text-secondary); margin-bottom: 5px; line-height: 1.5;">📍 Headquarters: 105-B, Gali No. 5, Mahalaxmi Vihar, Phase 7, Block A, Shiv Vihar, Karawal Nagar, Delhi, 110094</div>
                     <div style="color: var(--text-secondary); margin-bottom: 15px; line-height: 1.5;">📍 Aligarh Branch: NAVDIVA Aligarh, 5/27 M-15 Mangal Vihar, Banna Devi Thana, Aligarh 202002</div>
-                    <div style="font-size: 11px; color: var(--cyan-electric); margin-top: 20px; letter-spacing: 0.5px;">Developed by <strong style="color: #fff;">NDTechHub</strong></div>
+                    <div style="font-size: 12px; color: var(--cyan-electric); margin-top: 20px; letter-spacing: 0.5px;">Developed by <strong style="color: #fff;">NDTechHub</strong></div>
                 </div>
             </footer>
             
             <!-- WhatsApp Floating Button -->
-            <a href="https://wa.me/+918587001712?text=Hello%20Navdiva%20Group!" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp"><svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></a>
+            <a href="https://wa.me/+918587001712?text=Hello%20Navdiva%20Group!" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp"><svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></a>
         `;
 
 class NavdivaFooter extends HTMLElement {
