@@ -68,15 +68,17 @@ async function checkIsAdmin(user) {
 
   // 1. Super-admin direct authorization bypass
   if (SUPER_ADMINS.includes(email)) {
-    // Asynchronously ensure or update user admin doc in Firestore if possible
-    setDoc(doc(db, 'users', user.uid), {
-      email: user.email,
-      role: 'admin',
-      name: user.displayName || 'Administrator',
-      lastLogin: serverTimestamp()
-    }, { merge: true }).catch(err => {
+    // Explicitly write or sync user admin role to Firestore before reading tables
+    try {
+      await setDoc(doc(db, 'users', user.uid), {
+        email: user.email,
+        role: 'admin',
+        name: user.displayName || 'Administrator',
+        lastLogin: serverTimestamp()
+      }, { merge: true });
+    } catch (err) {
       console.warn('Super-admin profile auto-sync notice:', err.message);
-    });
+    }
     return true;
   }
 
@@ -156,6 +158,28 @@ $('#logout')?.addEventListener('click', async () => {
   }
 });
 
+// Refresh Records Handler
+$('#refreshDataBtn')?.addEventListener('click', async () => {
+  const btn = $('#refreshDataBtn');
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = '🔄 Refreshing…';
+  }
+  try {
+    if (auth.currentUser) {
+      await checkIsAdmin(auth.currentUser);
+    }
+    await loadAll();
+  } catch (err) {
+    console.error('Manual refresh error:', err);
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = '🔄 Refresh Records';
+    }
+  }
+});
+
 // Auth State Observer
 onAuthStateChanged(auth, async user => {
   if (!user) {
@@ -211,7 +235,7 @@ async function loadEmployees() {
     const snap = await getDocs(collection(db, 'employees'));
     tb.innerHTML = '';
     if (snap.empty) {
-      tb.innerHTML = '<tr><td colspan="5" style="text-align:center; padding: 20px; opacity:0.6;">No employee records found. Use the form above to add an employee.</td></tr>';
+      tb.innerHTML = '<tr><td colspan="5" style="text-align:center; padding: 24px; opacity:0.7;">No employee records found in database. Use the form above to add your first employee record.</td></tr>';
       return;
     }
     snap.forEach(x => {
@@ -234,7 +258,15 @@ async function loadEmployees() {
     });
   } catch (err) {
     console.error('Error loading employees:', err);
-    tb.innerHTML = `<tr><td colspan="5" style="color:#FF3366; padding: 20px;">Error loading employee records: ${esc(err.message)}</td></tr>`;
+    const isPerm = err.code === 'permission-denied' || String(err.message).toLowerCase().includes('permission');
+    const tip = isPerm
+      ? '<div style="margin-top:8px; font-size:0.85rem; color:var(--text-secondary); max-width: 500px; margin-left:auto; margin-right:auto;">Firestore security rules denied read access to <code>employees</code>. Please ensure the rules from <code>firestore.rules</code> are deployed in Firebase Console (Firestore Database → Rules).</div>'
+      : '';
+    tb.innerHTML = `<tr><td colspan="5" style="padding: 24px 16px; text-align: center;">
+      <div style="color: #FF3366; font-weight: 700; margin-bottom: 6px;">⚠️ Unable to fetch employee records: ${esc(err.message)}</div>
+      ${tip}
+      <button class="btn btn-outline" style="margin-top: 12px; padding: 6px 16px; font-size: 0.85rem;" onclick="window.navdivaAdmin?.loadEmployees()">🔄 Retry</button>
+    </td></tr>`;
   }
 }
 
@@ -246,7 +278,7 @@ async function loadApplications() {
     const snap = await getDocs(query(collection(db, 'applications'), orderBy('createdAt', 'desc')));
     tb.innerHTML = '';
     if (snap.empty) {
-      tb.innerHTML = '<tr><td colspan="4" style="text-align:center; padding: 20px; opacity:0.6;">No career applications submitted yet.</td></tr>';
+      tb.innerHTML = '<tr><td colspan="4" style="text-align:center; padding: 24px; opacity:0.7;">No career applications submitted yet.</td></tr>';
       return;
     }
     snap.forEach(x => {
@@ -257,7 +289,15 @@ async function loadApplications() {
     });
   } catch (err) {
     console.error('Error loading applications:', err);
-    tb.innerHTML = `<tr><td colspan="4" style="color:#FF3366; padding: 20px;">Error loading applications: ${esc(err.message)}</td></tr>`;
+    const isPerm = err.code === 'permission-denied' || String(err.message).toLowerCase().includes('permission');
+    const tip = isPerm
+      ? '<div style="margin-top:8px; font-size:0.85rem; color:var(--text-secondary); max-width: 500px; margin-left:auto; margin-right:auto;">Firestore security rules denied read access to <code>applications</code>.</div>'
+      : '';
+    tb.innerHTML = `<tr><td colspan="4" style="padding: 24px 16px; text-align: center;">
+      <div style="color: #FF3366; font-weight: 700; margin-bottom: 6px;">⚠️ Unable to load candidate applications: ${esc(err.message)}</div>
+      ${tip}
+      <button class="btn btn-outline" style="margin-top: 12px; padding: 6px 16px; font-size: 0.85rem;" onclick="window.navdivaAdmin?.loadApplications()">🔄 Retry</button>
+    </td></tr>`;
   }
 }
 
@@ -269,7 +309,7 @@ async function loadInquiries() {
     const snap = await getDocs(query(collection(db, 'inquiries'), orderBy('createdAt', 'desc')));
     tb.innerHTML = '';
     if (snap.empty) {
-      tb.innerHTML = '<tr><td colspan="4" style="text-align:center; padding: 20px; opacity:0.6;">No enquiries submitted yet.</td></tr>';
+      tb.innerHTML = '<tr><td colspan="4" style="text-align:center; padding: 24px; opacity:0.7;">No enquiries submitted yet.</td></tr>';
       return;
     }
     snap.forEach(x => {
@@ -280,7 +320,15 @@ async function loadInquiries() {
     });
   } catch (err) {
     console.error('Error loading inquiries:', err);
-    tb.innerHTML = `<tr><td colspan="4" style="color:#FF3366; padding: 20px;">Error loading enquiries: ${esc(err.message)}</td></tr>`;
+    const isPerm = err.code === 'permission-denied' || String(err.message).toLowerCase().includes('permission');
+    const tip = isPerm
+      ? '<div style="margin-top:8px; font-size:0.85rem; color:var(--text-secondary); max-width: 500px; margin-left:auto; margin-right:auto;">Firestore security rules denied read access to <code>inquiries</code>.</div>'
+      : '';
+    tb.innerHTML = `<tr><td colspan="4" style="padding: 24px 16px; text-align: center;">
+      <div style="color: #FF3366; font-weight: 700; margin-bottom: 6px;">⚠️ Unable to load enquiries: ${esc(err.message)}</div>
+      ${tip}
+      <button class="btn btn-outline" style="margin-top: 12px; padding: 6px 16px; font-size: 0.85rem;" onclick="window.navdivaAdmin?.loadInquiries()">🔄 Retry</button>
+    </td></tr>`;
   }
 }
 
@@ -336,3 +384,11 @@ function esc(v = '') {
     '"': '&quot;'
   }[c]));
 }
+
+// Expose admin reload helper on window
+window.navdivaAdmin = {
+  loadEmployees,
+  loadApplications,
+  loadInquiries,
+  loadAll
+};

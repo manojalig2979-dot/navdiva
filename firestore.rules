@@ -1,34 +1,60 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    function signedIn() { return request.auth != null; }
+    
+    function signedIn() { 
+      return request.auth != null; 
+    }
+    
+    // Explicit super-admin email bypass - validated directly against auth token
+    function isSuperAdmin() {
+      return signedIn() && (
+        request.auth.token.email in [
+          'manoj.alig2979@gmail.com',
+          'corporate@navdiva.com',
+          'admin@navdiva.com'
+        ]
+      );
+    }
+    
+    // Role-based check that safely guards against non-existent user documents
     function admin() {
-      return signedIn() && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+      return signedIn() && (
+        isSuperAdmin() ||
+        (exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin')
+      );
     }
+
+    // Users Collection
     match /users/{uid} {
-      allow read: if admin() || (signedIn() && request.auth.uid == uid);
-      allow create: if signedIn() && request.auth.uid == uid;
-      allow update: if admin() || (signedIn() && request.auth.uid == uid);
-      allow delete: if admin();
+      allow read: if isSuperAdmin() || admin() || (signedIn() && request.auth.uid == uid);
+      allow create, update: if isSuperAdmin() || admin() || (signedIn() && request.auth.uid == uid);
+      allow delete: if isSuperAdmin() || admin();
     }
+
+    // Employees Collection (Command Center)
     match /employees/{id} {
-      allow read, update, delete: if admin();
-      allow create: if admin();
+      allow read, write: if admin();
     }
+
+    // Career Applications Collection
     match /applications/{id} {
       allow create: if request.resource.data.keys().hasOnly(['name','email','phone','role','message','createdAt','status'])
         && request.resource.data.name is string && request.resource.data.name.size() >= 2 && request.resource.data.name.size() <= 100
         && request.resource.data.email is string && request.resource.data.email.size() <= 160
         && request.resource.data.role is string && request.resource.data.role.size() <= 120
         && request.resource.data.message is string && request.resource.data.message.size() <= 2000;
-      allow read, update, delete: if admin();
+      allow read, write: if admin();
     }
+
+    // Website Enquiries Collection
     match /inquiries/{id} {
       allow create: if request.resource.data.keys().hasOnly(['name','email','company','department','message','createdAt','status'])
         && request.resource.data.name is string && request.resource.data.name.size() >= 2 && request.resource.data.name.size() <= 100
         && request.resource.data.email is string && request.resource.data.email.size() <= 160
         && request.resource.data.message is string && request.resource.data.message.size() <= 3000;
-      allow read, update, delete: if admin();
+      allow read, write: if admin();
     }
   }
 }
