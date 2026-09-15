@@ -535,6 +535,7 @@ footerTemplate.innerHTML = `
                     <div class="footer-col">
                         <h4>Tech Solutions</h4>
                         <ul>
+                            <li><a href="nia.html" style="color: #00E676; font-weight: 700;">NIA 1.0 AI Agent ↗</a></li>
                             <li><a href="https://ndtechhub.com" target="_blank" rel="noopener">Visit NDTechHub</a></li>
                             <li><a href="contact.html">Hire Our Developers</a></li>
                             <li><a href="units.html">Enterprise AI & Cloud</a></li>
