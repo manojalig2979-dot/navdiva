@@ -639,6 +639,52 @@ button {
   color: #FF3366;
 }
 
+.notice.info {
+  background: rgba(0, 184, 255, 0.12);
+  border: 1px solid rgba(0, 184, 255, 0.4);
+  color: var(--cyan-electric);
+}
+
+.btn-google {
+  background: #ffffff;
+  color: #1f2937;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  letter-spacing: -0.01em;
+}
+
+.btn-google:hover {
+  background: #f8fafc;
+  color: #000;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  margin: 22px 0;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.auth-divider span {
+  padding: 0 14px;
+}
+
+
 /* Toast Notification */
 .toast {
   position: fixed;
