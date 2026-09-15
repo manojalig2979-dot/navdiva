@@ -22,7 +22,7 @@ footerTemplate.innerHTML = `
                 
                 .site-footer {
                     width: 100%;
-                    background: rgba(0, 184, 255, 0.05);
+                    background: var(--bg-deep);
                     backdrop-filter: blur(20px);
                     -webkit-backdrop-filter: blur(20px);
                     border-top: 1px solid var(--cyan-electric);
