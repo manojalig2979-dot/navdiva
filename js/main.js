@@ -257,10 +257,10 @@ function initCardSpotlight() {
       // Gentle 3D perspective tilt
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
-      const tiltX = -((y - centerY) / centerY) * 4;
-      const tiltY = ((x - centerX) / centerX) * 4;
+      const tiltX = -((y - centerY) / centerY) * 1.5;
+      const tiltY = ((x - centerX) / centerX) * 1.5;
 
-      card.style.transform = `perspective(1000px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) translateY(-6px)`;
+      card.style.transform = `perspective(1000px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) translateY(-2px)`;
     });
 
     card.addEventListener('mouseleave', () => {
