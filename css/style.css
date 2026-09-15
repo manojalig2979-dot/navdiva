@@ -292,7 +292,7 @@ button {
 }
 
 .hero-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-2px);
 }
 
 .hero-card img {
@@ -451,11 +451,11 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.35s ease, box-shadow 0.35s ease;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card:hover, .bento-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-2px);
   border-color: rgba(0, 184, 255, 0.4);
   border-top-color: rgba(255, 255, 255, 0.7);
   box-shadow: 
@@ -905,7 +905,7 @@ button {
 }
 
 .nia-avatar-frame:hover .nia-avatar-img {
-  transform: scale(1.03) translateY(-4px);
+  transform: scale(1.01) translateY(-1px);
 }
 
 .floating-pill {
